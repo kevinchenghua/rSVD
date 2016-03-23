@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/jcommon-1.0.16.jar"/>
-	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/jfreechart-1.0.13.jar"/>
-	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/joda-time-2.3.jar"/>
-	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/spark-assembly-1.4.0-hadoop2.6.0.jar"/>
+	<classpathentry exported="true" kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="lib" path="/home/ytlin/workspace/Lib/jcommon-1.0.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/ytlin/workspace/Lib/jfreechart-1.0.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/ytlin/workspace/Lib/joda-time-2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/ytlin/workspace/Lib/jmatio.jar"/>
+	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/spark-assembly-1.6.1-hadoop2.6.0.jar"/>
+	<classpathentry kind="lib" path="/home/ytlin/workspace/Lib/spark-mllib_2.10-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
