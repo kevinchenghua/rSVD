@@ -1,0 +1,120 @@
+Rsvd process:
+  1 rsvd computing start.
+  1 rsvd finished with: 122450 msec
+  2 rsvd computing start.
+  2 rsvd finished with: 80273 msec
+  3 rsvd computing start.
+  3 rsvd finished with: 74269 msec
+  4 rsvd computing start.
+  4 rsvd finished with: 67129 msec
+  5 rsvd computing start.
+  5 rsvd finished with: 81164 msec
+Combining process:
+  1 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 11131 msec
+  1 update loop finished with: 14826 msec
+  2 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 10177 msec
+  2 update loop finished with: 13336 msec
+  3 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 9032 msec
+  3 update loop finished with: 11957 msec
+  4 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 10367 msec
+  4 update loop finished with: 13432 msec
+  5 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 11045 msec
+  5 update loop finished with: 14555 msec
+  6 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 13436 msec
+  6 update loop finished with: 17689 msec
+  7 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 15422 msec
+  7 update loop finished with: 20319 msec
+  8 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 18479 msec
+  8 update loop finished with: 23943 msec
+  9 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 18312 msec
+  9 update loop finished with: 24383 msec
+  10 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 21468 msec
+  10 update loop finished with: 27881 msec
+  11 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 31727 msec
+  11 update loop finished with: 40914 msec
+  12 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 45758 msec
+  12 update loop finished with: 65146 msec
+  13 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 32207 msec
+  13 update loop finished with: 42609 msec
+  14 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 37778 msec
+  14 update loop finished with: 49141 msec
+  15 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 42102 msec
+  15 update loop finished with: 55013 msec
+  16 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 46761 msec
+  16 update loop finished with: 61653 msec
+  17 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 53654 msec
+  17 update loop finished with: 69265 msec
+  18 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 59324 msec
+  18 update loop finished with: 77477 msec
+  19 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 68267 msec
+  19 update loop finished with: 88623 msec
+  20 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 74602 msec
+  20 update loop finished with: 96604 msec
+  21 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 82661 msec
+  21 update loop finished with: 107851 msec
+  22 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 104159 msec
+  22 update loop finished with: 131720 msec
+  23 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 104737 msec
+  23 update loop finished with: 135226 msec
+  24 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 112730 msec
+  24 update loop finished with: 146517 msec
+  25 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 128115 msec
+  25 update loop finished with: 165585 msec
+  26 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 235881 msec
+  26 update loop finished with: 294665 msec
+  27 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 193753 msec
+  27 update loop finished with: 254991 msec

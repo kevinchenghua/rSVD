@@ -1,0 +1,44 @@
+Rsvd process:
+  1 rsvd computing start.
+  1 rsvd finished with: 69046 msec
+  2 rsvd computing start.
+  2 rsvd finished with: 33640 msec
+  3 rsvd computing start.
+  3 rsvd finished with: 29148 msec
+  4 rsvd computing start.
+  4 rsvd finished with: 29278 msec
+  5 rsvd computing start.
+  5 rsvd finished with: 24157 msec
+Combining process:
+  1 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 8047 msec
+  1 update loop finished with: 11139 msec
+  2 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 7633 msec
+  2 update loop finished with: 10692 msec
+  3 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 11161 msec
+  3 update loop finished with: 13503 msec
+  4 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 10155 msec
+  4 update loop finished with: 12976 msec
+  5 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 13848 msec
+  5 update loop finished with: 18784 msec
+  6 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 17936 msec
+  6 update loop finished with: 26179 msec
+  7 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 23096 msec
+  7 update loop finished with: 33372 msec
+  8 update loop computing start.
+    1 step update computing start.
+    1 step update finished with: 31311 msec
+  8 update loop finished with: 41149 msec
