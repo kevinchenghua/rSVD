@@ -28,6 +28,7 @@ object OutputHelper {
       ExecutionTimeTracker.endTracking()
       val time = ExecutionTimeTracker.getExecutionTime()
       recorder.write(" "*(hierarchy*2) + rsvdNumber.toString + " rsvd finished with: " + time +" msec\n")
+      println(rsvdNumber.toString + " rsvd finished with: " + time +" msec\n")
     }
     def startUpdateLoop(hierarchy: Int = 1, updateNumber: Int) {
       recorder.write(" "*(hierarchy*2) + updateNumber.toString + " update loop computing start.\n")
@@ -37,6 +38,7 @@ object OutputHelper {
       ExecutionTimeTracker.endTracking()
       val time = ExecutionTimeTracker.getExecutionTime()
       recorder.write(" "*(hierarchy*2) + updateNumber.toString + " update loop finished with: " + time +" msec\n")
+      println(updateNumber.toString + " update loop finished with: " + time +" msec\n")
     }
     def startStepLoop(hierarchy: Int = 2, updateNumber: Int) {
       recorder.write(" "*(hierarchy*2) + updateNumber.toString + " step update computing start.\n")
@@ -46,6 +48,7 @@ object OutputHelper {
       ExecutionTimeTracker.endLoopTracking()
       val time = ExecutionTimeTracker.getLoopExecutionTime()
       recorder.write(" "*(hierarchy*2) + updateNumber.toString + " step update finished with: " + time +" msec\n")
+      println(updateNumber.toString + " step update finished with: " + time +" msec\n")
     }
     object ExecutionTimeTracker {
       private var startingTime = 0L

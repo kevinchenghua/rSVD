@@ -47,12 +47,16 @@ object RunTest {
         map(row => IndexedRow(row._1, row._2)))
     val mat: IndexedRowMatrix = new IndexedRowMatrix(rows)
     //Compute randomized SVD
-    val recorder = new OutputHelper.ExecutionRecorder("./output/random.txt")
-    val UU:(IndexedRowMatrix,BlockMatrix) = RandomizedSingularValueDecomposition.rsvdSeqUU(sc, recorder, mat, r = r, n = 1)
-    val test = RandomizedSingularValueDecomposition.combineOrth(sc, recorder, UU._1, UU._2, 1)
+    val recorder = new OutputHelper.ExecutionRecorder("./output/random5.txt")
+    val WUUTuple:(BlockMatrix,BlockMatrix) = RandomizedSingularValueDecomposition.rsvdSeqUU(sc, recorder, mat, r = r, n = 5)
+    val W = WUUTuple._1
+    val UU = WUUTuple._2
+    W.cache()
+    UU.cache()
+    val test = RandomizedSingularValueDecomposition.combineOrth(sc, recorder, W, UU, 5)
     recorder.finish()
     //Output the combined matrix
-    val matrixDocumenter = new OutputHelper.MatrixDocumenter("./output/rsvd.txt")
+    val matrixDocumenter = new OutputHelper.MatrixDocumenter("./output/rsvd5.txt")
     matrixDocumenter.writeMatrix(test.toIndexedRowMatrix())
     //Output the full svd matrix
     //val fullSVDDocumenter = new OutputHelper.MatrixDocumenter("./output/fullsvd.txt")

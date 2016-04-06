@@ -65,25 +65,24 @@ object RandomizedSingularValueDecomposition {
     
     SingularValueDecomposition(U, s, V)
   }
-  def rsvdSeqUU(sc: SparkContext, recorder: OutputHelper.ExecutionRecorder, A:IndexedRowMatrix, r: Int, t: Int = 0, n: Int): (IndexedRowMatrix,BlockMatrix) ={
-    def computeUU(U: IndexedRowMatrix): BlockMatrix = {
-      U.toBlockMatrix() multiply U.toBlockMatrix().transpose
+  def rsvdSeqUU(sc: SparkContext, recorder: OutputHelper.ExecutionRecorder, A:IndexedRowMatrix, r: Int, t: Int = 0, n: Int): (BlockMatrix,BlockMatrix) ={
+    def computeUU(U: BlockMatrix): BlockMatrix = {
+      U multiply U.transpose
     }
     recorder.writHeadline(subject = "rsvd")
     recorder.startRsvd(rsvdNumber = 1)
-    val W0 = rsvd(sc,A,r,t).U
+    val W0 = rsvd(sc,A,r,t).U.toBlockMatrix()
     var UU = computeUU(W0)
     recorder.endRsvd(rsvdNumber = 1)
     for(i <- 1 to n-1){
       println("It's computing the "+(i+1)+"th rsvd")
       recorder.startRsvd(rsvdNumber = i+1)
-      UU = UU add computeUU(rsvd(sc,A,r,t).U)
+      UU = UU add computeUU(rsvd(sc,A,r,t).U.toBlockMatrix())
       recorder.endRsvd(rsvdNumber = i+1)
     }
-    UU.cache()
     (W0,UU)
   }
-  def combineOrth(sc: SparkContext, recorder: OutputHelper.ExecutionRecorder, W0: IndexedRowMatrix, UU: BlockMatrix, n: Int, toleranceT: Double = 1e-2, toleranceF: Double = 1e-4, iterationMax: Int = 100): BlockMatrix = {
+  def combineOrth(sc: SparkContext, recorder: OutputHelper.ExecutionRecorder, W0: BlockMatrix, UU: BlockMatrix, n: Int, toleranceT: Double = 1e-2, toleranceF: Double = 1e-4, iterationMax: Int = 100): BlockMatrix = {
     def eye(k: Int, entry: Double = 1.0): BlockMatrix = {
       val entries: RDD[MatrixEntry] = sc.makeRDD((0 until k) map { i => MatrixEntry(i,i,entry)})
       val eyeCoordinateMatrix: CoordinateMatrix = new CoordinateMatrix(entries)
@@ -125,43 +124,50 @@ object RandomizedSingularValueDecomposition {
         println("And the t now is: "+t.toString)
         println("The oldF is: "+oldF.toString)
         recorder.startStepLoop(updateNumber = tracker)
-        val Y = (eye(m,1.0).multiply(W)).add( eye(m,-t/2).multiply((W.multiply((W.transpose).multiply(GF))).add(GF.multiply(eye(r,-1.0)))))
-        val X = computeInverse((eye(2*r,-1.0).multiply(eye(2*r,1.0)).add(eye(2*r,t/2).multiply(V.transpose).multiply(U))).toIndexedRowMatrix()).toBlockMatrix() multiply V.transpose multiply Y
-        val newW = Y.multiply(eye(r,1.0)).add(U multiply X multiply eye(r,-t/2))
+        val Y = (eye(m,1.0).multiply(W)).add( eye(m,-t/2).multiply((W.multiply((W.transpose).multiply(GF))).add(GF.multiply(eye(r,-1.0))))).cache()
+        val X = (computeInverse((eye(2*r,-1.0).multiply(eye(2*r,1.0)).add(eye(2*r,t/2).multiply(V.transpose).multiply(U))).toIndexedRowMatrix()).toBlockMatrix() multiply V.transpose multiply Y).cache()
+        val newW = Y.multiply(eye(r,1.0)).add(U multiply X multiply eye(r,-t/2)).cache()
         val newF = computeTrace((newW.transpose multiply UU multiply newW).toIndexedRowMatrix())
+        Y.blocks.unpersist()
+        X.blocks.unpersist()
         if(newF > oldF) {
           recorder.endStepLoop(updateNumber = tracker)
           (newF, newW)
         }else {
           recorder.endStepLoop(updateNumber = tracker)
+          newW.blocks.unpersist()
           updateHelper(U, V, GF, r, m, t/2, oldF, tracker+1)
         }
       }
       println("It's the "+(iterationNumber+1).toString+" update loop")
       recorder.startUpdateLoop(updateNumber = iterationNumber+1)
-      val GF = computeGF(W)
-      val U = matrixJoin(GF, W)
-      val V = matrixJoin(W, GF multiply eye(GF.numCols().toInt,-1.0))
+      val GF = computeGF(W).cache()
+      val U = matrixJoin(GF, W).cache()
+      val V = matrixJoin(W, GF multiply eye(GF.numCols().toInt,-1.0)).cache()
       val tupleFW = updateHelper(U, V, GF, r, m, 1.0, oldF,1)
       val newF = tupleFW._1
       val newW = tupleFW._2
       println("The update of the newW succeed")
       println("The newF is: "+newF.toString)
+      GF.blocks.unpersist()
+      U.blocks.unpersist()
+      V.blocks.unpersist()
       if(iterationNumber >= iterationMax) {
         recorder.endUpdateLoop(updateNumber = iterationNumber+1)
+        W.blocks.unpersist()
         newW
       }else if(((newF-oldF)/oldF) < toleranceF) {
         recorder.endUpdateLoop(updateNumber = iterationNumber+1)
         W
       }else {
         recorder.endUpdateLoop(updateNumber = iterationNumber+1)
+        W.blocks.unpersist()
         updateLoop(newW,r,m,newF,iterationNumber+1)
       }
     }
     val r =W0.numCols().toInt
     val m = W0.numRows().toInt
-    val W = W0.toBlockMatrix
     recorder.writHeadline(subject = "combine")
-    updateLoop(W,r,m,computeTrace((computeGF(W).transpose.multiply(W)).toIndexedRowMatrix()),0)
+    updateLoop(W0,r,m,computeTrace((computeGF(W0).transpose.multiply(W0)).toIndexedRowMatrix()),0)
   }
 }
